@@ -11,7 +11,7 @@ interface InviteLinkInputProps {
 export function InviteLinkInput({ linkValue }: InviteLinkInputProps) {
   const [isCopied, setIsCopied] = useState(false)
 
-  const handleCopy = async () => {
+  async function handleCopy() {
     try {
       await navigator.clipboard.writeText(linkValue)
       setIsCopied(true)

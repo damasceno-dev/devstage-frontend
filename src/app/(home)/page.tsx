@@ -2,6 +2,7 @@ import { SubscriptionForm } from '@/app/(home)/subscription-form'
 import { Radio } from 'lucide-react'
 import Image from 'next/image'
 import logo from '../../assets/logo.svg'
+const CURRENT_YEAR = new Date().getFullYear()
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
         <Image src={logo} alt="devstage logo" width={108.5} height={30} />
         <h1 className="text-4xl text-center leading-none font-heading font-medium flex flex-col md:text-7xl">
           <span>CodeCraft</span>
-          Summit 2025
+          Summit {CURRENT_YEAR}
         </h1>
       </div>
 
