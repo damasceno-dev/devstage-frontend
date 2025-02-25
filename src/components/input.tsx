@@ -6,12 +6,21 @@ import type {
   GlobalError,
 } from 'react-hook-form'
 
-interface InputRootProps extends ComponentProps<'div'> {
-  inputErrors?: Partial<FieldErrorsImpl<DeepRequired<SubscriptionSchema>>> & {
-    root?: Record<string, GlobalError> & GlobalError
-  }
-  errorName: keyof SubscriptionSchema
+type FormErrors = Partial<FieldErrorsImpl<DeepRequired<SubscriptionSchema>>> & {
+  root?: Record<string, GlobalError> & GlobalError
 }
+
+type InputRootProps = ComponentProps<'div'> &
+  (
+    | {
+        inputErrors: FormErrors
+        errorName: keyof SubscriptionSchema
+      }
+    | {
+        inputErrors?: undefined
+        errorName?: never
+      }
+  )
 
 export function InputRoot({
   inputErrors,

@@ -1,7 +1,7 @@
 'use client'
 import IconButton from '@/components/icon-button'
 import { InputField, InputIcon, InputRoot } from '@/components/input'
-import { Check, Copy, Link } from 'lucide-react'
+import { Copy, Link } from 'lucide-react'
 import { useState } from 'react'
 
 interface InviteLinkInputProps {
