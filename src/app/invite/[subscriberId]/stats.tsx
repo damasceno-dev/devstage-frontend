@@ -1,6 +1,6 @@
 import { BadgeCheck, Medal, MousePointerClick } from 'lucide-react'
 
-export function Stats() {
+export async function Stats() {
   return (
     <div className="grid gap-3 md:grid-cols-3">
       <div className="relative border border-gray-600 px-4 py-7 flex flex-col items-center justify-center gap-1 rounded-xl">
