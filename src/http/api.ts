@@ -6,72 +6,66 @@
  */
 export interface RequestRegisterSubscriptionJson {
   /** @nullable */
-  name?: string | null;
+  name?: string | null
   /** @nullable */
-  email?: string | null;
+  email?: string | null
   /** @nullable */
-  referredId?: string | null;
+  referredId?: string | null
 }
 
 export interface ResponseErrorJson {
   /** @nullable */
-  errorMessages?: string[] | null;
+  errorMessages?: string[] | null
   /** @nullable */
-  method?: string | null;
+  method?: string | null
 }
 
 export interface ResponseRank {
   /** @nullable */
-  ranking?: ResponseSubscriberRankingPositionJson[] | null;
+  ranking?: ResponseSubscriberRankingPositionJson[] | null
 }
 
 export interface ResponseRegisterSubscriptionJson {
-  id?: string;
+  id?: string
   /** @nullable */
-  name?: string | null;
+  name?: string | null
   /** @nullable */
-  email?: string | null;
+  email?: string | null
   /** @nullable */
-  referredId?: string | null;
+  referredId?: string | null
 }
 
 export interface ResponseSubscriberRankingPositionJson {
-  subscriberId?: string;
+  subscriberId?: string
   /** @nullable */
-  name?: string | null;
-  position?: number;
-  score?: number;
+  name?: string | null
+  position?: number
+  score?: number
 }
 
 export interface ResponseSubscriberTotalInvitesJson {
-  totalInvites?: number;
+  totalInvites?: number
 }
 
 export interface ResponseSubscriberTotalSubscriptions {
-  totalSubscriptions?: number;
+  totalSubscriptions?: number
 }
-
-
 
 /**
  * Access invite link and redirects user to the event
  */
-export const getGetSubscriberIdInviteUrl = (subscriberId: string,) => {
-
-
+export const getGetSubscriberIdInviteUrl = (subscriberId: string) => {
   return `http://localhost:5241/${subscriberId}/invite`
 }
 
-export const getSubscriberIdInvite = async (subscriberId: string, options?: RequestInit): Promise<unknown> => {
-  
-  const res = await fetch(getGetSubscriberIdInviteUrl(subscriberId),
-  {      
+export const getSubscriberIdInvite = async (
+  subscriberId: string,
+  options?: RequestInit
+): Promise<unknown> => {
+  const res = await fetch(getGetSubscriberIdInviteUrl(subscriberId), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
   const data: unknown = body ? JSON.parse(body) : {}
@@ -79,27 +73,26 @@ export const getSubscriberIdInvite = async (subscriberId: string, options?: Requ
   return data
 }
 
-
-
 /**
  * Get total invites clicks for the subscriber
  */
-export const getGetSubscriberIdTotalinvitesclicksUrl = (subscriberId: string,) => {
-
-
+export const getGetSubscriberIdTotalinvitesclicksUrl = (
+  subscriberId: string
+) => {
   return `http://localhost:5241/${subscriberId}/totalinvitesclicks`
 }
 
-export const getSubscriberIdTotalinvitesclicks = async (subscriberId: string, options?: RequestInit): Promise<ResponseSubscriberTotalInvitesJson> => {
-  
-  const res = await fetch(getGetSubscriberIdTotalinvitesclicksUrl(subscriberId),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-)
+export const getSubscriberIdTotalinvitesclicks = async (
+  subscriberId: string,
+  options?: RequestInit
+): Promise<ResponseSubscriberTotalInvitesJson> => {
+  const res = await fetch(
+    getGetSubscriberIdTotalinvitesclicksUrl(subscriberId),
+    {
+      ...options,
+      method: 'GET',
+    }
+  )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
   const data: ResponseSubscriberTotalInvitesJson = body ? JSON.parse(body) : {}
@@ -107,28 +100,23 @@ export const getSubscriberIdTotalinvitesclicks = async (subscriberId: string, op
   return data
 }
 
-
-
 /**
  * Subscribes to the event
  */
 export const getPostSubscriptionsUrl = () => {
-
-
-  return `http://localhost:5241/subscriptions`
+  return 'http://localhost:5241/subscriptions'
 }
 
-export const postSubscriptions = async (requestRegisterSubscriptionJson: RequestRegisterSubscriptionJson, options?: RequestInit): Promise<ResponseRegisterSubscriptionJson> => {
-  
-  const res = await fetch(getPostSubscriptionsUrl(),
-  {      
+export const postSubscriptions = async (
+  requestRegisterSubscriptionJson: RequestRegisterSubscriptionJson,
+  options?: RequestInit
+): Promise<ResponseRegisterSubscriptionJson> => {
+  const res = await fetch(getPostSubscriptionsUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      requestRegisterSubscriptionJson,)
-  }
-)
+    body: JSON.stringify(requestRegisterSubscriptionJson),
+  })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
   const data: ResponseRegisterSubscriptionJson = body ? JSON.parse(body) : {}
@@ -136,117 +124,102 @@ export const postSubscriptions = async (requestRegisterSubscriptionJson: Request
   return data
 }
 
-
-
 /**
  * Get total converted invites into subscription for the subscriber
  */
-export const getGetSubscriberIdTotalsubscriptionsUrl = (subscriberId: string,) => {
-
-
+export const getGetSubscriberIdTotalsubscriptionsUrl = (
+  subscriberId: string
+) => {
   return `http://localhost:5241/${subscriberId}/totalsubscriptions`
 }
 
-export const getSubscriberIdTotalsubscriptions = async (subscriberId: string, options?: RequestInit): Promise<ResponseSubscriberTotalSubscriptions> => {
-  
-  const res = await fetch(getGetSubscriberIdTotalsubscriptionsUrl(subscriberId),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-)
+export const getSubscriberIdTotalsubscriptions = async (
+  subscriberId: string,
+  options?: RequestInit
+): Promise<ResponseSubscriberTotalSubscriptions> => {
+  const res = await fetch(
+    getGetSubscriberIdTotalsubscriptionsUrl(subscriberId),
+    {
+      ...options,
+      method: 'GET',
+    }
+  )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: ResponseSubscriberTotalSubscriptions = body ? JSON.parse(body) : {}
+  const data: ResponseSubscriberTotalSubscriptions = body
+    ? JSON.parse(body)
+    : {}
 
   return data
 }
-
-
 
 /**
  * Get total converted invites into subscription for the subscriber
  */
-export const getGetSubscriberIdGetrankingpositionUrl = (subscriberId: string,) => {
-
-
+export const getGetSubscriberIdGetrankingpositionUrl = (
+  subscriberId: string
+) => {
   return `http://localhost:5241/${subscriberId}/getrankingposition`
 }
 
-export const getSubscriberIdGetrankingposition = async (subscriberId: string, options?: RequestInit): Promise<ResponseSubscriberRankingPositionJson> => {
-  
-  const res = await fetch(getGetSubscriberIdGetrankingpositionUrl(subscriberId),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-)
+export const getSubscriberIdGetrankingposition = async (
+  subscriberId: string,
+  options?: RequestInit
+): Promise<ResponseSubscriberRankingPositionJson> => {
+  const res = await fetch(
+    getGetSubscriberIdGetrankingpositionUrl(subscriberId),
+    {
+      ...options,
+      method: 'GET',
+    }
+  )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: ResponseSubscriberRankingPositionJson = body ? JSON.parse(body) : {}
+  const data: ResponseSubscriberRankingPositionJson = body
+    ? JSON.parse(body)
+    : {}
 
   return data
 }
-
-
 
 /**
  * Get the total rank of the subscribers
  */
 export const getGetGetrankUrl = () => {
-
-
-  return `http://localhost:5241/getrank`
+  return 'http://localhost:5241/getrank'
 }
 
-export const getGetrank = async ( options?: RequestInit): Promise<ResponseRank> => {
-  
-  const res = await fetch(getGetGetrankUrl(),
-  {      
+export const getGetrank = async (
+  options?: RequestInit
+): Promise<ResponseRank> => {
+  const res = await fetch(getGetGetrankUrl(), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
   const data: ResponseRank = body ? JSON.parse(body) : {}
 
   return data
 }
-
-
 
 /**
  * Get top three rank of the subscribers
  */
 export const getGetGettopthreerankUrl = () => {
-
-
-  return `http://localhost:5241/gettopthreerank`
+  return 'http://localhost:5241/gettopthreerank'
 }
 
-export const getGettopthreerank = async ( options?: RequestInit): Promise<ResponseRank> => {
-  
-  const res = await fetch(getGetGettopthreerankUrl(),
-  {      
+export const getGettopthreerank = async (
+  options?: RequestInit
+): Promise<ResponseRank> => {
+  const res = await fetch(getGetGettopthreerankUrl(), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
   const data: ResponseRank = body ? JSON.parse(body) : {}
 
   return data
 }
-
-
-
