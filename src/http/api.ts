@@ -6,247 +6,202 @@
  */
 export interface RequestRegisterSubscriptionJson {
   /** @nullable */
-  name?: string | null;
+  name?: string | null
   /** @nullable */
-  email?: string | null;
+  email?: string | null
   /** @nullable */
-  referredId?: string | null;
+  referredId?: string | null
 }
 
 export interface ResponseErrorJson {
   /** @nullable */
-  errorMessages?: string[] | null;
+  errorMessages?: string[] | null
   /** @nullable */
-  method?: string | null;
+  method?: string | null
 }
 
 export interface ResponseRank {
   /** @nullable */
-  ranking?: ResponseSubscriberRankingPositionJson[] | null;
+  ranking?: ResponseSubscriberRankingPositionJson[] | null
 }
 
 export interface ResponseRegisterSubscriptionJson {
-  id?: string;
+  id?: string
   /** @nullable */
-  name?: string | null;
+  name?: string | null
   /** @nullable */
-  email?: string | null;
+  email?: string | null
   /** @nullable */
-  referredId?: string | null;
+  referredId?: string | null
 }
 
 export interface ResponseSubscriberRankingPositionJson {
-  subscriberId?: string;
+  subscriberId?: string
   /** @nullable */
-  name?: string | null;
-  position?: number;
-  score?: number;
+  name?: string | null
+  position?: number
+  score?: number
 }
 
 export interface ResponseSubscriberTotalInvitesJson {
-  totalInvites?: number;
+  totalInvites?: number
 }
 
 export interface ResponseSubscriberTotalSubscriptions {
-  totalSubscriptions?: number;
+  totalSubscriptions?: number
 }
-
-
 
 /**
  * Access invite link and redirects user to the event
  */
-export const getGetSubscriberIdInviteUrl = (subscriberId: string,) => {
-
-
+export const getGetSubscriberIdInviteUrl = (subscriberId: string) => {
   return `https://yyipe2h53h.us-east-1.awsapprunner.com/${subscriberId}/invite`
 }
 
-export const getSubscriberIdInvite = async (subscriberId: string, options?: RequestInit): Promise<unknown> => {
-  
-  const res = await fetch(getGetSubscriberIdInviteUrl(subscriberId),
-  {      
+export const getSubscriberIdInvite = async (
+  subscriberId: string,
+  options?: RequestInit
+): Promise<unknown> => {
+  const res = await fetch(getGetSubscriberIdInviteUrl(subscriberId), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: unknown = body ? JSON.parse(body) : {}
-
-  return data
+  return body ? JSON.parse(body) : {}
 }
-
-
 
 /**
  * Get total invites clicks for the subscriber
  */
-export const getGetSubscriberIdTotalinvitesclicksUrl = (subscriberId: string,) => {
-
-
+export const getGetSubscriberIdTotalinvitesclicksUrl = (
+  subscriberId: string
+) => {
   return `https://yyipe2h53h.us-east-1.awsapprunner.com/${subscriberId}/totalinvitesclicks`
 }
 
-export const getSubscriberIdTotalinvitesclicks = async (subscriberId: string, options?: RequestInit): Promise<ResponseSubscriberTotalInvitesJson> => {
-  
-  const res = await fetch(getGetSubscriberIdTotalinvitesclicksUrl(subscriberId),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-)
+export const getSubscriberIdTotalinvitesclicks = async (
+  subscriberId: string,
+  options?: RequestInit
+): Promise<ResponseSubscriberTotalInvitesJson> => {
+  const res = await fetch(
+    getGetSubscriberIdTotalinvitesclicksUrl(subscriberId),
+    {
+      ...options,
+      method: 'GET',
+    }
+  )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: ResponseSubscriberTotalInvitesJson = body ? JSON.parse(body) : {}
-
-  return data
+  return body ? JSON.parse(body) : {}
 }
-
-
 
 /**
  * Subscribes to the event
  */
 export const getPostSubscriptionsUrl = () => {
-
-
-  return `https://yyipe2h53h.us-east-1.awsapprunner.com/subscriptions`
+  return 'https://yyipe2h53h.us-east-1.awsapprunner.com/subscriptions'
 }
 
-export const postSubscriptions = async (requestRegisterSubscriptionJson: RequestRegisterSubscriptionJson, options?: RequestInit): Promise<ResponseRegisterSubscriptionJson> => {
-  
-  const res = await fetch(getPostSubscriptionsUrl(),
-  {      
+export const postSubscriptions = async (
+  requestRegisterSubscriptionJson: RequestRegisterSubscriptionJson,
+  options?: RequestInit
+): Promise<ResponseRegisterSubscriptionJson> => {
+  const res = await fetch(getPostSubscriptionsUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      requestRegisterSubscriptionJson,)
-  }
-)
+    body: JSON.stringify(requestRegisterSubscriptionJson),
+  })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: ResponseRegisterSubscriptionJson = body ? JSON.parse(body) : {}
-
-  return data
+  return body ? JSON.parse(body) : {}
 }
-
-
 
 /**
  * Get total converted invites into subscription for the subscriber
  */
-export const getGetSubscriberIdTotalsubscriptionsUrl = (subscriberId: string,) => {
-
-
+export const getGetSubscriberIdTotalsubscriptionsUrl = (
+  subscriberId: string
+) => {
   return `https://yyipe2h53h.us-east-1.awsapprunner.com/${subscriberId}/totalsubscriptions`
 }
 
-export const getSubscriberIdTotalsubscriptions = async (subscriberId: string, options?: RequestInit): Promise<ResponseSubscriberTotalSubscriptions> => {
-  
-  const res = await fetch(getGetSubscriberIdTotalsubscriptionsUrl(subscriberId),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-)
+export const getSubscriberIdTotalsubscriptions = async (
+  subscriberId: string,
+  options?: RequestInit
+): Promise<ResponseSubscriberTotalSubscriptions> => {
+  const res = await fetch(
+    getGetSubscriberIdTotalsubscriptionsUrl(subscriberId),
+    {
+      ...options,
+      method: 'GET',
+    }
+  )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: ResponseSubscriberTotalSubscriptions = body ? JSON.parse(body) : {}
-
-  return data
+  return body ? JSON.parse(body) : {}
 }
-
-
 
 /**
  * Get total converted invites into subscription for the subscriber
  */
-export const getGetSubscriberIdGetrankingpositionUrl = (subscriberId: string,) => {
-
-
+export const getGetSubscriberIdGetrankingpositionUrl = (
+  subscriberId: string
+) => {
   return `https://yyipe2h53h.us-east-1.awsapprunner.com/${subscriberId}/getrankingposition`
 }
 
-export const getSubscriberIdGetrankingposition = async (subscriberId: string, options?: RequestInit): Promise<ResponseSubscriberRankingPositionJson> => {
-  
-  const res = await fetch(getGetSubscriberIdGetrankingpositionUrl(subscriberId),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-)
+export const getSubscriberIdGetrankingposition = async (
+  subscriberId: string,
+  options?: RequestInit
+): Promise<ResponseSubscriberRankingPositionJson> => {
+  const res = await fetch(
+    getGetSubscriberIdGetrankingpositionUrl(subscriberId),
+    {
+      ...options,
+      method: 'GET',
+    }
+  )
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: ResponseSubscriberRankingPositionJson = body ? JSON.parse(body) : {}
-
-  return data
+  return body ? JSON.parse(body) : {}
 }
-
-
 
 /**
  * Get the total rank of the subscribers
  */
 export const getGetGetrankUrl = () => {
-
-
-  return `https://yyipe2h53h.us-east-1.awsapprunner.com/getrank`
+  return 'https://yyipe2h53h.us-east-1.awsapprunner.com/getrank'
 }
 
-export const getGetrank = async ( options?: RequestInit): Promise<ResponseRank> => {
-  
-  const res = await fetch(getGetGetrankUrl(),
-  {      
+export const getGetrank = async (
+  options?: RequestInit
+): Promise<ResponseRank> => {
+  const res = await fetch(getGetGetrankUrl(), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: ResponseRank = body ? JSON.parse(body) : {}
-
-  return data
+  return body ? JSON.parse(body) : {}
 }
-
-
 
 /**
  * Get top three rank of the subscribers
  */
 export const getGetGettopthreerankUrl = () => {
-
-
-  return `https://yyipe2h53h.us-east-1.awsapprunner.com/gettopthreerank`
+  return 'https://yyipe2h53h.us-east-1.awsapprunner.com/gettopthreerank'
 }
 
-export const getGettopthreerank = async ( options?: RequestInit): Promise<ResponseRank> => {
-  
-  const res = await fetch(getGetGettopthreerankUrl(),
-  {      
+export const getGettopthreerank = async (
+  options?: RequestInit
+): Promise<ResponseRank> => {
+  const res = await fetch(getGetGettopthreerankUrl(), {
     ...options,
-    method: 'GET'
-    
-    
-  }
-)
+    method: 'GET',
+  })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  const data: ResponseRank = body ? JSON.parse(body) : {}
-
-  return data
+  return body ? JSON.parse(body) : {}
 }
-
-
-
