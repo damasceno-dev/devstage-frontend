@@ -1,6 +1,7 @@
 import { SubscriptionForm } from '@/app/(home)/subscription-form'
 import { Radio } from 'lucide-react'
 import Image from 'next/image'
+import { Suspense } from 'react'
 import logo from '../../assets/logo.svg'
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -37,7 +38,22 @@ export default function Home() {
             Dias 15 a 17 de Março | Das 18h às 21h | Online & Gratuito
           </p>
         </div>
-        <SubscriptionForm />
+        <Suspense
+          fallback={
+            <div className="bg-gray-700 border border-gray-600 rounded-2xl p-8 space-y-6 w-full md:max-w-[440px]">
+              <div className="animate-pulse">
+                <div className="h-7 bg-gray-600 rounded w-24 mb-6" />
+                <div className="space-y-3">
+                  <div className="h-12 bg-gray-600 rounded" />
+                  <div className="h-12 bg-gray-600 rounded" />
+                </div>
+                <div className="h-10 bg-gray-600 rounded mt-6" />
+              </div>
+            </div>
+          }
+        >
+          <SubscriptionForm />
+        </Suspense>
       </div>
     </div>
   )
