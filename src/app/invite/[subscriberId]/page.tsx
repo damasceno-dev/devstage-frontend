@@ -12,7 +12,7 @@ interface InvitePageProps {
 
 export default async function InvitePage(props: InvitePageProps) {
   const { subscriberId } = await props.params
-  const linkValue = `http://localhost:5241/${subscriberId}/invite`
+  const linkValue = `${process.env.NEXT_PUBLIC_API_URL}/${subscriberId}/invite`
 
   return (
     <div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">

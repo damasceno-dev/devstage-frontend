@@ -3,8 +3,9 @@ import Button from '@/components/button'
 import { InputField, InputIcon, InputRoot } from '@/components/input'
 import { postSubscriptions } from '@/http/api'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowRight, Mail, User } from 'lucide-react'
+import { ArrowRight, Loader2, Mail, User } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -21,11 +22,14 @@ export function SubscriptionForm() {
     register,
     handleSubmit,
     formState: { errors },
-    setError, // Add this
+    setError,
   } = useForm<SubscriptionSchema>({
     resolver: zodResolver(subscriptionForm),
   })
+  const [isLoading, setIsLoading] = useState(false) // Add this state
+
   async function onSubscribe({ name, email }: SubscriptionSchema) {
+    setIsLoading(true)
     const referrer = searchParams.get('referrer')
     try {
       const response = await postSubscriptions({
@@ -34,10 +38,12 @@ export function SubscriptionForm() {
         referredId: referrer,
       })
       if (!response?.id) {
+        setIsLoading(false)
         return
       }
       router.push(`/invite/${response.id}`)
     } catch (error) {
+      setIsLoading(false)
       if (
         error &&
         typeof error === 'object' &&
@@ -84,7 +90,15 @@ export function SubscriptionForm() {
         </InputRoot>
       </div>
       <Button type="submit">
-        Confirmar <ArrowRight />{' '}
+        {isLoading ? (
+          <>
+            Processando <Loader2 className="animate-spin" />
+          </>
+        ) : (
+          <>
+            Confirmar <ArrowRight />
+          </>
+        )}
       </Button>
     </form>
   )
