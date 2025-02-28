@@ -32,7 +32,7 @@ export default function Home() {
             criar soluções inovadoras e compartilhar conhecimento. Vamos
             mergulhar nas tendências mais recentes em desenvolvimento de
             software, arquitetura de sistemas e tecnologias emergentes, com
-            palestrar, workshops e hackathons.
+            palestras, workshops e hackathons.
             <br />
             <br />
             Dias 15 a 17 de Março | Das 18h às 21h | Online & Gratuito
