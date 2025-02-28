@@ -10,6 +10,7 @@ dotenv.config({
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5241'
 
+// @ts-ignore
 export default defineConfig({
   api: {
     input: `${apiUrl}/swagger/v1/swagger.json`,
@@ -22,6 +23,10 @@ export default defineConfig({
       override: {
         fetch: {
           includeHttpResponseReturnType: false,
+        },
+        mutator: {
+          path: 'orval-fetcher.ts',
+          name: 'customFetcher',
         },
       },
     },
